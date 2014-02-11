@@ -23,8 +23,8 @@ var json = $.ajax({
 	});
 }
 function loadForm(newData){
-		if(newData != null){
-		data = newData;
+	data = newData;
+	if(data != null){
 		var frm = document.forms[0];
 	  var select = document.createElement('Select');
 		select.setAttribute('onchange', 'loadForm(data[this.value])');
@@ -41,11 +41,7 @@ function loadForm(newData){
 	}
 }
 </script>
-
 </HEAD>
-Hello World
 <body onload="apiCall()">
-
-</form>
 </body>
 </HTML>
