@@ -1,7 +1,21 @@
 <!DOCTYPE HTML>
 <HTML>
 <HEAD>
-<style></style>
+<style>
+	 #overlay {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width:100%;
+    height:100%;
+    text-align:center;
+ }
+ #overlay div {
+     width:300px;
+     margin: 100px auto;
+     padding:15px;
+}
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -45,11 +59,39 @@ function refresh(){
   while (elements[0]) elements[0].parentNode.removeChild(elements[0])
   apiCall();
 }
+function submit(){
+		var overlay = document.getElementById("overlay");
+		var name = document.getElementById("name").value;
+		var age = document.getElementById("age").value;
+		var email = document.getElementById("email").value;
+		if(email && name && age){
+			document.getElementsByTagName('body')[0].removeChild(overlay);
+			var frm = document.createTextNode("Hello " + name);
+			document.getElementsByTagName('body')[0].appendChild(frm);
+			apiCall();
+		}
+		else{
+			alert("Please fill in all fields!");
+		}
+	}
 </script>
 </HEAD>
-<body onload="apiCall()">
+
+<body>
+<div id="overlay">
+	<div class="input-group">
+	  <input type="text" class="form-control" placeholder="Username" id = "name">
+	  <input type="text" class="form-control" placeholder="Age" id = "age">
+		<input type="text" class="form-control" placeholder="Email" id = "email">
+		<br>
+	  <button class="btn btn-default" type="button" button onclick = "submit()">Go!</button>
+	</div>
+</div>
+<div id = "page2"
 <button type="button" class="btn btn-default btn-lg" button onclick = "refresh()">
   <span class="glyphicon glyphicon-repeat"></span> Start over
 </button>
+
+
 </body>
 </HTML>
