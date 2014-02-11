@@ -40,8 +40,16 @@ function loadForm(newData){
 	   frm.appendChild(select);
 	}
 }
+function refresh(){
+	var elements = document.forms[0];
+  while (elements[0]) elements[0].parentNode.removeChild(elements[0])
+  apiCall();
+}
 </script>
 </HEAD>
 <body onload="apiCall()">
+<button type="button" class="btn btn-default btn-lg" button onclick = "refresh()">
+  <span class="glyphicon glyphicon-repeat"></span> Start over
+</button>
 </body>
 </HTML>
