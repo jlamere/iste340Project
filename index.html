@@ -2,25 +2,43 @@
 <HTML>
 <HEAD>
 <style>
-	 #overlay {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width:100%;
-    height:100%;
-    text-align:center;
+body{
+	padding-top: 40px;
+}
+ #overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height:50%;
+  text-align:center;
  }
  #overlay div {
+ 		height: 300px;
      width:300px;
      margin: 100px auto;
      padding:15px;
 }
+	p{
+		font-size: 100px;
+		text-align: center;
+		padding-bottom: 40px;
+		padding-top: 230px;
+	}
+	#page2 {
+		margin: 200px auto;
+		position: absolute;
+    left: 0px;
+    top: 0px;
+    text-align:center;
+}
+
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script>
 function apiCall(){
+total = ''
 var json = $.ajax({
 	  type: "POST",
 	  url: "api.txt",
@@ -38,10 +56,12 @@ var json = $.ajax({
 }
 function loadForm(newData){
 	data = newData;
+	text = document.createTextNode(total + " ");
+	document.getElementsByTagName('body')[0].appendChild(text);
 	if(data != null){
 		var frm = document.forms[0];
 	  var select = document.createElement('Select');
-		select.setAttribute('onchange', 'loadForm(data[this.value])');
+		select.setAttribute('onchange', 'total = this.value; loadForm(data[this.value])');
 		var option = document.createElement("OPTION");
 	  option.text='<select>';
 	  select.options.add(option);
@@ -55,20 +75,28 @@ function loadForm(newData){
 	}
 }
 function refresh(){
+	document.getElementById("name").value = '';
+	document.getElementById("age").value = '';
+	document.getElementById("email").value = '';
 	var elements = document.forms[0];
   while (elements[0]) elements[0].parentNode.removeChild(elements[0])
-  apiCall();
+	var overlay = document.getElementById("overlay");
+	document.getElementsByTagName('body')[0].appendChild(overlay);
+
 }
 function submit(){
 		var overlay = document.getElementById("overlay");
+		overlay.style.height = '0px';
 		var name = document.getElementById("name").value;
 		var age = document.getElementById("age").value;
 		var email = document.getElementById("email").value;
 		if(email && name && age){
-			document.getElementsByTagName('body')[0].removeChild(overlay);
-			var frm = document.createTextNode("Hello " + name);
-			document.getElementsByTagName('body')[0].appendChild(frm);
-			apiCall();
+			var p = document.createElement('p');
+			text = document.createTextNode('Hello ' + name);
+			p.appendChild(text);
+			document.getElementsByTagName('body')[0].appendChild(p);
+			text = document.createTextNode('You chose ');
+			document.getElementsByTagName('body')[0].appendChild(text);
 		}
 		else{
 			alert("Please fill in all fields!");
@@ -77,20 +105,21 @@ function submit(){
 </script>
 </HEAD>
 
-<body>
+<body onload="apiCall()">
 <div id="overlay">
 	<div class="input-group">
+		Fill me out first
 	  <input type="text" class="form-control" placeholder="Username" id = "name">
 	  <input type="text" class="form-control" placeholder="Age" id = "age">
 		<input type="text" class="form-control" placeholder="Email" id = "email">
 		<br>
 	  <button class="btn btn-default" type="button" button onclick = "submit()">Go!</button>
+	  <button type="button" class="btn btn-default btn-lg" button onclick = "refresh()" id = "startOver">
+Start over
+</button>
+
 	</div>
 </div>
-<div id = "page2"
-<button type="button" class="btn btn-default btn-lg" button onclick = "refresh()">
-  <span class="glyphicon glyphicon-repeat"></span> Start over
-</button>
 
 
 </body>
