@@ -1,0 +1,22 @@
+{
+	"option1": {
+		"optionA": {
+			"optiona": null,
+			"optionb": null
+		},
+		"optionB": {
+			"optiona": null,
+			"optionb":null
+		}
+	},
+	"option2": {
+		"optionA": {
+			"optiona":null,
+			"optionb":null
+		},
+		"optionB": {
+			"optiona":null,
+			"optionb":null
+		}
+	}
+}

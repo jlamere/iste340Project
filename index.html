@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<style></style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script>
+function apiCall(){
+var json = $.ajax({
+	  type: "POST",
+	  url: "api.txt",
+	  contentType: "application/json; charset=utf-8",
+	  dataType: "json",
+	  success: function (response) {
+  		var frm = document.createElement("form");
+			document.getElementsByTagName('body')[0].appendChild(frm);
+  		loadForm(response);
+  		},
+	  error: function (response) {
+	    console.log(response.statusText);
+	  },
+	});
+}
+function loadForm(newData){
+	data = newData;
+	var frm = document.forms[0];
+  var select = document.createElement('Select');
+	select.setAttribute('onchange', 'addElement(data, this.value)');
+	var option = document.createElement("OPTION");
+  option.text='<select>';
+  select.options.add(option);
+  for(i in data){
+ 		var option = document.createElement("OPTION");
+    option.text=i;
+    option.value=i;
+    select.options.add(option);
+  }
+   frm.appendChild(select);
+}
+function addElement(data, value){
+	if(data[value] != null){
+		data = data[value];
+		console.log(data);
+		loadForm(data);
+	}
+}
+</script>
+
+</HEAD>
+Hello World
+<body onload="apiCall()">
+
+</form>
+</body>
+</HTML>
