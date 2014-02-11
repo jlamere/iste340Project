@@ -23,26 +23,21 @@ var json = $.ajax({
 	});
 }
 function loadForm(newData){
-	data = newData;
-	var frm = document.forms[0];
-  var select = document.createElement('Select');
-	select.setAttribute('onchange', 'addElement(data, this.value)');
-	var option = document.createElement("OPTION");
-  option.text='<select>';
-  select.options.add(option);
-  for(i in data){
- 		var option = document.createElement("OPTION");
-    option.text=i;
-    option.value=i;
-    select.options.add(option);
-  }
-   frm.appendChild(select);
-}
-function addElement(data, value){
-	if(data[value] != null){
-		data = data[value];
-		console.log(data);
-		loadForm(data);
+		if(newData != null){
+		data = newData;
+		var frm = document.forms[0];
+	  var select = document.createElement('Select');
+		select.setAttribute('onchange', 'loadForm(data[this.value])');
+		var option = document.createElement("OPTION");
+	  option.text='<select>';
+	  select.options.add(option);
+	  for(i in data){
+	 		var option = document.createElement("OPTION");
+	    option.text=i;
+	    option.value=i;
+	    select.options.add(option);
+	  }
+	   frm.appendChild(select);
 	}
 }
 </script>
