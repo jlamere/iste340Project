@@ -7,15 +7,15 @@ body{
 	text-align: center;
 }
  #overlay {
-  position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 50%;
+	top: 0px;
+  margin: auto;
   height:50%;
  }
  #overlay div {
  		height: 300px;
     width:300px;
-    margin: 100px auto;
+    margin: auto;
     padding:15px;
 }
 	p{
@@ -30,7 +30,10 @@ body{
 }
 	#helloName{
 		font-size: 100px;
-		padding-top: 220px;
+		display: float;
+		height: 100px;
+		text-align: center;
+		left: 50%;
 	}
 
 </style>
@@ -40,12 +43,14 @@ body{
 <script>
 function apiCall(){
 total = ''
+// ajax to get the json object of the data for the select
 var json = $.ajax({
 	  type: "POST",
 	  url: "api.txt",
 	  contentType: "application/json; charset=utf-8",
 	  dataType: "json",
 	  success: function (response) {
+	  	//once we have the data, we can build the form
   		var frm = document.createElement("form");
 			document.getElementsByTagName('body')[0].appendChild(frm);
   		loadForm(response);
@@ -57,15 +62,17 @@ var json = $.ajax({
 }
 function loadForm(newData){
 	data = newData;
-	text = document.createTextNode(total + " ");
-	document.getElementsByTagName('body')[0].appendChild(text);
+	//add what is so far selected
+	//will stop here if at end of the program
 	if(data != null){
 		var frm = document.forms[0];
 	  var select = document.createElement('Select');
-		select.setAttribute('onchange', 'total = this.value; loadForm(data[this.value])');
+	  //recursive: when a new thing is selected, the next thing will start
+		select.setAttribute('onchange', 'total += this.value + " "; loadForm(data[this.value])');
 		var option = document.createElement("OPTION");
 	  option.text='<select>';
 	  select.options.add(option);
+	  //build up all of the options
 	  for(i in data){
 	 		var option = document.createElement("OPTION");
 	    option.text=i;
@@ -73,9 +80,15 @@ function loadForm(newData){
 	    select.options.add(option);
 	  }
 	   frm.appendChild(select);
+	}else{
+		var p = document.createElement('p');
+		text = document.createTextNode("You chose: " + total + " ");
+		p.appendChild(text);
+		document.getElementsByTagName('body')[0].appendChild(p);
 	}
 }
 function refresh(){
+	//clear out everything, and restart the form
 	document.getElementById("name").value = '';
 	document.getElementById("age").value = '';
 	document.getElementById("email").value = '';
@@ -85,25 +98,20 @@ function refresh(){
 	document.getElementsByTagName('body')[0].appendChild(overlay);
 	var p = document.getElementsByTagName("p");
   while (p[0]) p[0].parentNode.removeChild(p[0])
-  apiCall();
-
 }
 function submit(){
 		var overlay = document.getElementById("overlay");
-		overlay.style.height = '0px';
 		var name = document.getElementById("name").value;
 		var age = document.getElementById("age").value;
 		var email = document.getElementById("email").value;
 		if(email && name && age){
+			apiCall();
+			// for text on the bottom of the pa
 			var p = document.createElement('p');
 			p.setAttribute('id', 'helloName');
 			text = document.createTextNode('Hello ' + name);
 			p.appendChild(text);
 			document.getElementsByTagName('body')[0].appendChild(p);
-			var p2 = document.createElement('p');
-			text = document.createTextNode('You chose ');
-			p2.appendChild(text);
-			document.getElementsByTagName('body')[0].appendChild(p2);
 		}
 		else{
 			alert("Please fill in all fields!");
@@ -112,10 +120,9 @@ function submit(){
 </script>
 </HEAD>
 
-<body onload="apiCall()">
+<body>
 <div id="overlay">
 	<div class="input-group">
-		Fill me out first
 	  <input type="text" class="form-control" placeholder="Username" id = "name">
 	  <input type="text" class="form-control" placeholder="Age" id = "age">
 		<input type="text" class="form-control" placeholder="Email" id = "email">
