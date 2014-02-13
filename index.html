@@ -4,33 +4,34 @@
 <style>
 body{
 	padding-top: 40px;
+	text-align: center;
 }
  #overlay {
   position: absolute;
   left: 0px;
   top: 0px;
   height:50%;
-  text-align:center;
  }
  #overlay div {
  		height: 300px;
-     width:300px;
-     margin: 100px auto;
-     padding:15px;
+    width:300px;
+    margin: 100px auto;
+    padding:15px;
 }
 	p{
-		font-size: 100px;
 		text-align: center;
-		padding-bottom: 40px;
-		padding-top: 230px;
+		padding-top: 30px;
 	}
 	#page2 {
 		margin: 200px auto;
 		position: absolute;
     left: 0px;
     top: 0px;
-    text-align:center;
 }
+	#helloName{
+		font-size: 100px;
+		padding-top: 220px;
+	}
 
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,6 +83,9 @@ function refresh(){
   while (elements[0]) elements[0].parentNode.removeChild(elements[0])
 	var overlay = document.getElementById("overlay");
 	document.getElementsByTagName('body')[0].appendChild(overlay);
+	var p = document.getElementsByTagName("p");
+  while (p[0]) p[0].parentNode.removeChild(p[0])
+  apiCall();
 
 }
 function submit(){
@@ -92,11 +96,14 @@ function submit(){
 		var email = document.getElementById("email").value;
 		if(email && name && age){
 			var p = document.createElement('p');
+			p.setAttribute('id', 'helloName');
 			text = document.createTextNode('Hello ' + name);
 			p.appendChild(text);
 			document.getElementsByTagName('body')[0].appendChild(p);
+			var p2 = document.createElement('p');
 			text = document.createTextNode('You chose ');
-			document.getElementsByTagName('body')[0].appendChild(text);
+			p2.appendChild(text);
+			document.getElementsByTagName('body')[0].appendChild(p2);
 		}
 		else{
 			alert("Please fill in all fields!");
