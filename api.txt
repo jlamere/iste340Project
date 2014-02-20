@@ -1,22 +1,53 @@
 {
-	"option1": {
-		"optionA": {
-			"optiona": null,
-			"optionb": null
+	"Western Hemisphere": {
+		"North America": {
+			"USA": {
+					"New York City" : null,
+					"DC" : null,
+					"Boston" : null
+			},
+			"Canada": {
+				"Toronto": null,
+				"Montreal": null,
+				"Vancouver": null
+			}
 		},
-		"optionB": {
-			"optionc": null,
-			"optiond":null
+		"South America": {
+			"Brazil": {
+				"Rio de Janeiro": null,
+				"São Paulo": null
+			},
+			"Peru": {
+				"Lima" : null,
+				"Arequipa": null
+			}
 		}
 	},
-	"option2": {
-		"optionC": {
-			"optione":null,
-			"optionf":null
+	"Eastern Hemisphere": {
+		"Europe": {
+			"France": {
+				"Paris" : null,
+				"Nice" : null,
+				"Bordeaux": null
+			},
+			"United Kingdom": {
+				"England": null,
+				"Whales" : null,
+				"Scotland" : null
+
+			}
 		},
-		"optionD": {
-			"optiong":null,
-			"optionh":null
+		"Asia": {
+			"China":{
+				"Shanghai": null,
+				"Beijing": null
+			},
+			"Japan":{
+				"Hokkaido": null,
+				"Honshu": null,
+				"Shikoku": null,
+				"Kyushu": null
+			}
 		}
 	}
 }
